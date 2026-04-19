@@ -34,6 +34,7 @@ function show(index) {
   const filename = pick.src.split('/').pop();
   lbCaption.innerHTML = `<span class="lb-filename">${filename}</span>${pick.caption ? '<br><br>' + pick.caption : ''}`;
   lbCount.textContent = `${current + 1} / ${picks.length}`;
+  history.replaceState(null, '', '#' + encodeURIComponent(filename));
 }
 
 function open(index) {
@@ -45,6 +46,14 @@ function open(index) {
 function close() {
   lightbox.classList.remove('open');
   document.body.style.overflow = '';
+  history.replaceState(null, '', location.pathname);
+}
+
+// Open directly from URL hash on load
+const hash = decodeURIComponent(location.hash.slice(1));
+if (hash) {
+  const index = picks.findIndex(p => p.src.split('/').pop() === hash);
+  if (index !== -1) open(index);
 }
 
 // Click on grid items
