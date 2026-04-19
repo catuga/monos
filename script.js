@@ -1,3 +1,14 @@
+// Password gate
+const PASSWORD = '1234';
+if (sessionStorage.getItem('auth') !== '1') {
+  const input = prompt('password');
+  if (input !== PASSWORD) {
+    document.body.innerHTML = '';
+    throw new Error('wrong password');
+  }
+  sessionStorage.setItem('auth', '1');
+}
+
 // Read all picks from the HTML — source of truth is the markup
 const picks = Array.from(document.querySelectorAll('.work')).map(el => ({
   src: el.querySelector('img').src,
