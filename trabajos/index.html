@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Job Search · catuga</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #fff;
+    --surface: #f7f7f7;
+    --border: #e8e8e8;
+    --border2: #d0d0d0;
+    --text: #111;
+    --muted: #888;
+    --faint: #ccc;
+    --accent: #111;
+    --accent-green: #5a9e00;
+    --accent-blue: #0066cc;
+    --accent-red: #cc2200;
+    --accent-amber: #996600;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem;
+  }
+
+  a { color: var(--muted); text-decoration: none; font-size: 11px; letter-spacing: 0.04em; }
+  a:hover { color: var(--text); }
+
+  .dashboard {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .header-left h1 {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .header-left p {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .header-left p strong {
+    font-weight: 500;
+  }
+
+  .oferta-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border2);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .oferta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #5a9e00;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* Metric cards */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 620px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .charts-row { grid-template-columns: 1fr !important; }
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--faint));
+  }
+
+  .metric-card.c-green { --card-accent: #5a9e00; }
+  .metric-card.c-blue  { --card-accent: #0066cc; }
+  .metric-card.c-red   { --card-accent: #cc2200; }
+  .metric-card.c-amber { --card-accent: #996600; }
+
+  .metric-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-size: 1.9rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .metric-card.c-green .metric-value { color: #5a9e00; }
+
+  .metric-sub {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* Chart containers */
+  .charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .chart-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+  }
+
+  .chart-title {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+
+  .chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 7px; height: 7px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer p {
+    font-size: 11px;
+    color: var(--faint);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-stat {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <a class="back" href="/">← catuga</a>
+
+  <header class="header">
+    <div class="header-left">
+      <h1>Frontend Developer · EU Job Search</h1>
+      <p><strong>348</strong> postulaciones — Feb/May 2025</p>
+    </div>
+    <div class="oferta-tag">
+      <div class="oferta-dot"></div>
+      1 oferta · Oxigent Sevilla
+    </div>
+  </header>
+
+  <div class="metrics">
+    <div class="metric-card c-green">
+      <p class="metric-label">Total apps</p>
+      <p class="metric-value">348</p>
+      <p class="metric-sub">en ~3 meses</p>
+    </div>
+    <div class="metric-card c-blue">
+      <p class="metric-label">Países</p>
+      <p class="metric-value">30+</p>
+      <p class="metric-sub">España lidera (139)</p>
+    </div>
+    <div class="metric-card c-red">
+      <p class="metric-label">Tasa respuesta</p>
+      <p class="metric-value">2.6%</p>
+      <p class="metric-sub">9 contactos totales</p>
+    </div>
+    <div class="metric-card c-amber">
+      <p class="metric-label">En proceso</p>
+      <p class="metric-value">8</p>
+      <p class="metric-sub">+ 1 oferta recibida</p>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-box">
+      <p class="chart-title">Postulaciones por mes</p>
+      <div class="chart-legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#111"></span>Postulaciones</span>
+      </div>
+      <div style="position:relative;height:200px;">
+        <canvas id="monthChart" role="img" aria-label="Feb: 61, Mar: 44, Abr: 167, May: 57">Feb 61, Mar 44, Abr 167, May 57.</canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <p class="chart-title">Estado de postulaciones</p>
+      <div class="chart-legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#0066cc"></span>Postulada 311</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#cc2200"></span>Rechazada 24</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#996600"></span>En proceso 8</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#5a9e00"></span>Oferta 1</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#bbb"></span>Otros 4</span>
+      </div>
+      <div style="position:relative;height:200px;">
+        <canvas id="statusChart" role="img" aria-label="311 postuladas, 24 rechazadas, 8 en proceso, 1 oferta">311 postuladas, 24 rechazadas, 8 en proceso, 1 oferta.</canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-box">
+      <p class="chart-title">Top 10 países</p>
+      <div style="position:relative;height:300px;">
+        <canvas id="countryChart" role="img" aria-label="España 139, Germany 33, Portugal 28, Denmark 25, Sweden 16, Poland 13, Hungary 12, Netherlands 9, EU 9, Malta 7">España lidera con 139 postulaciones.</canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <p class="chart-title">Modalidad de trabajo</p>
+      <div class="chart-legend">
+        <span class="legend-item"><span class="legend-dot" style="background:#555"></span>Híbrido 134</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#0066cc"></span>Remoto 91</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#bbb"></span>No especificada 93</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#996600"></span>Presencial 30</span>
+      </div>
+      <div style="position:relative;height:300px;">
+        <canvas id="modalChart" role="img" aria-label="Híbrido 134, Remoto 91, No especificada 93, Presencial 30">Modalidad: híbrido 134, remoto 91, presencial 30, no especificada 93.</canvas>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>job-search · frontend developer · europa · 2025</p>
+    <p class="footer-stat">tasa de contacto: 3 / 348</p>
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  const muted = '#aaa';
+  const grid = 'rgba(0,0,0,0.06)';
+
+  Chart.defaults.color = muted;
+  Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif";
+  Chart.defaults.font.size = 11;
+
+  new Chart(document.getElementById('monthChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Feb', 'Mar', 'Abr', 'May'],
+      datasets: [{
+        data: [61, 44, 167, 57],
+        backgroundColor: ['#ccc', '#ccc', '#111', '#ccc'],
+        borderRadius: 4,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: {
+        backgroundColor: '#fff',
+        borderColor: '#e8e8e8',
+        borderWidth: 1,
+        titleColor: '#111',
+        bodyColor: '#888'
+      }},
+      scales: {
+        x: { grid: { color: grid }, ticks: { autoSkip: false } },
+        y: { grid: { color: grid }, beginAtZero: true }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('statusChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Postulada', 'Rechazada', 'En proceso', 'Oferta', 'Otros'],
+      datasets: [{
+        data: [311, 24, 8, 1, 4],
+        backgroundColor: ['#0066cc', '#cc2200', '#996600', '#5a9e00', '#ddd'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#fff',
+          borderColor: '#e8e8e8',
+          borderWidth: 1,
+          titleColor: '#111',
+          bodyColor: '#888',
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw / 348 * 100)}%)`
+          }
+        }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('countryChart'), {
+    type: 'bar',
+    data: {
+      labels: ['España', 'Germany', 'Portugal', 'Denmark', 'Sweden', 'Poland', 'Hungary', 'Netherlands', 'EU', 'Malta'],
+      datasets: [{
+        data: [139, 33, 28, 25, 16, 13, 12, 9, 9, 7],
+        backgroundColor: (ctx) => {
+          const v = ctx.raw;
+          if (v >= 100) return '#111';
+          if (v >= 25)  return '#888';
+          return '#ccc';
+        },
+        borderRadius: 3,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#fff',
+          borderColor: '#e8e8e8',
+          borderWidth: 1,
+          titleColor: '#111',
+          bodyColor: '#888'
+        }
+      },
+      scales: {
+        x: { grid: { color: grid }, beginAtZero: true },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('modalChart'), {
+    type: 'pie',
+    data: {
+      labels: ['Híbrido', 'No especificada', 'Remoto', 'Presencial'],
+      datasets: [{
+        data: [134, 93, 91, 30],
+        backgroundColor: ['#555', '#ddd', '#0066cc', '#996600'],
+        borderWidth: 0,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#fff',
+          borderColor: '#e8e8e8',
+          borderWidth: 1,
+          titleColor: '#111',
+          bodyColor: '#888',
+          callbacks: {
+            label: ctx => ` ${ctx.label}: ${ctx.raw} (${Math.round(ctx.raw / 348 * 100)}%)`
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
