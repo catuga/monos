@@ -254,8 +254,8 @@
     </div>
     <div class="metric-card c-red">
       <p class="metric-label">Tasa respuesta</p>
-      <p class="metric-value">2.6%</p>
-      <p class="metric-sub">9 contactos totales</p>
+      <p class="metric-value">9.5%</p>
+      <p class="metric-sub">33 contactos totales</p>
     </div>
     <div class="metric-card c-amber">
       <p class="metric-label">En proceso</p>
@@ -277,7 +277,7 @@
     <div class="chart-box">
       <p class="chart-title">Estado de postulaciones</p>
       <div class="chart-legend">
-        <span class="legend-item"><span class="legend-dot" style="background:#0066cc"></span>Postulada 311</span>
+        <span class="legend-item"><span class="legend-dot" style="background:#0066cc"></span>Sin respuesta 311</span>
         <span class="legend-item"><span class="legend-dot" style="background:#cc2200"></span>Rechazada 24</span>
         <span class="legend-item"><span class="legend-dot" style="background:#996600"></span>En proceso 8</span>
         <span class="legend-item"><span class="legend-dot" style="background:#5a9e00"></span>Oferta 1</span>
@@ -312,7 +312,7 @@
 
   <footer class="footer">
     <p>job-search · frontend developer · europa · 2025</p>
-    <p class="footer-stat">tasa de contacto: 3 / 348</p>
+    <p class="footer-stat">tasa de contacto: 33 / 348</p>
   </footer>
 
 </div>
@@ -357,7 +357,7 @@
   new Chart(document.getElementById('statusChart'), {
     type: 'doughnut',
     data: {
-      labels: ['Postulada', 'Rechazada', 'En proceso', 'Oferta', 'Otros'],
+      labels: ['Sin respuesta', 'Rechazada', 'En proceso', 'Oferta', 'Otros'],
       datasets: [{
         data: [311, 24, 8, 1, 4],
         backgroundColor: ['#0066cc', '#cc2200', '#996600', '#5a9e00', '#ddd'],
