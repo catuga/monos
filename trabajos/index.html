@@ -202,6 +202,102 @@
     flex-shrink: 0;
   }
 
+  /* Salary chart */
+  .salary-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .salary-label {
+    width: 140px;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .salary-bar-track {
+    flex: 1;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .salary-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--bar-color, #111);
+    transition: width 0.3s;
+  }
+
+  .salary-val {
+    width: 80px;
+    flex-shrink: 0;
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .salary-note {
+    font-size: 10px;
+    color: var(--faint);
+    margin-left: 4px;
+  }
+
+  /* Process table */
+  .process-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+  }
+
+  .process-table th {
+    text-align: left;
+    color: var(--muted);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-size: 10px;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .process-table td {
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+
+  .process-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .process-table td:first-child {
+    font-weight: 500;
+    width: 150px;
+  }
+
+  .stage-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    background: var(--badge-bg, #f0f0f0);
+    color: var(--badge-color, #555);
+  }
+
+  .stage-badge.offer { --badge-bg: #edf7e0; --badge-color: #3a7000; }
+  .stage-badge.final { --badge-bg: #e8f0fa; --badge-color: #0044aa; }
+  .stage-badge.tech  { --badge-bg: #fdf3e0; --badge-color: #7a4f00; }
+  .stage-badge.hr    { --badge-bg: #f5f5f5; --badge-color: #666; }
+
   /* Footer */
   .footer {
     margin-top: 2rem;
@@ -307,6 +403,187 @@
       <div style="position:relative;height:300px;">
         <canvas id="modalChart" role="img" aria-label="Híbrido 134, Remoto 91, No especificada 93, Presencial 30">Modalidad: híbrido 134, remoto 91, presencial 30, no especificada 93.</canvas>
       </div>
+    </div>
+  </div>
+
+  <!-- Salary comparison -->
+  <div class="charts-row" style="grid-template-columns: 1fr; margin-bottom: 10px;">
+    <div class="chart-box">
+      <p class="chart-title">Sueldos ofertados — procesos avanzados</p>
+      <p style="font-size:10px;color:var(--muted);margin-bottom:16px;">Bruto anual en euros · procesos donde hubo contacto y se mencionó cifra</p>
+
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Glintt Global</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:100%;--bar-color:#111;"></div></div>
+        <span class="salary-val">55–60k<span class="salary-note">+ bonus</span></span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Betsson Group</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:83%;--bar-color:#444;"></div></div>
+        <span class="salary-val">50k<span class="salary-note">Malta</span></span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Vermont → Santander</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:72%;--bar-color:#555;"></div></div>
+        <span class="salary-val">43k</span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Prewave</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:67%;--bar-color:#666;"></div></div>
+        <span class="salary-val">40k<span class="salary-note">14 pagas</span></span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">BrainRocket</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:67%;--bar-color:#777;"></div></div>
+        <span class="salary-val">40k<span class="salary-note">Lisboa</span></span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Prosegur</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:58%;--bar-color:#999;"></div></div>
+        <span class="salary-val">35k<span class="salary-note">conversable</span></span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Celonis</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:50%;--bar-color:#aaa;"></div></div>
+        <span class="salary-val">30k<span class="salary-note">+ 10% bono</span></span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Acciona</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:50%;--bar-color:#bbb;"></div></div>
+        <span class="salary-val">30k</span>
+      </div>
+      <div class="salary-bar-wrap">
+        <span class="salary-label">Oxigent Sevilla ✓</span>
+        <div class="salary-bar-track"><div class="salary-bar-fill" style="width:38%;--bar-color:#cc2200;"></div></div>
+        <span class="salary-val">23k<span class="salary-note">oferta</span></span>
+      </div>
+
+      <p style="font-size:10px;color:var(--faint);margin-top:16px;">Rango observado: 23k – 60k · Mediana aprox. 38k · Tu mínimo negociado con Betsson: 40–45k</p>
+    </div>
+  </div>
+
+  <!-- Advanced processes table -->
+  <div class="charts-row" style="grid-template-columns: 1fr; margin-bottom: 10px;">
+    <div class="chart-box">
+      <p class="chart-title">Procesos con contacto — detalle</p>
+      <table class="process-table">
+        <thead>
+          <tr>
+            <th>Empresa</th>
+            <th>Rol / stack</th>
+            <th>Etapa alcanzada</th>
+            <th>Sueldo</th>
+            <th>Modalidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Oxigent Sevilla</td>
+            <td>React, Redux, Tailwind</td>
+            <td><span class="stage-badge offer">Oferta</span></td>
+            <td>23.000€</td>
+            <td>Híbrido · Sevilla</td>
+          </tr>
+          <tr>
+            <td>Celonis</td>
+            <td>Angular, NX monorepo</td>
+            <td><span class="stage-badge final">Final (manager)</span></td>
+            <td>~30k + 10% bono</td>
+            <td>Híbrido · Madrid</td>
+          </tr>
+          <tr>
+            <td>Betsson Group</td>
+            <td>Angular Sportsbook</td>
+            <td><span class="stage-badge final">Penúltima ronda</span></td>
+            <td>50.000€</td>
+            <td>Híbrido · Malta</td>
+          </tr>
+          <tr>
+            <td>Glintt → Orange</td>
+            <td>React 18, microfrontends</td>
+            <td><span class="stage-badge tech">Entrevista técnica</span></td>
+            <td>55–60k + bonus</td>
+            <td>100% Remoto</td>
+          </tr>
+          <tr>
+            <td>Vermont → Santander</td>
+            <td>Angular, microfrontend</td>
+            <td><span class="stage-badge tech">Llamada técnica</span></td>
+            <td>~43.000€</td>
+            <td>Híbrido · Madrid</td>
+          </tr>
+          <tr>
+            <td>BrainRocket</td>
+            <td>Angular / React</td>
+            <td><span class="stage-badge tech">HackerRank + técnica</span></td>
+            <td>40.000€</td>
+            <td>Presencial · Lisboa</td>
+          </tr>
+          <tr>
+            <td>Prewave</td>
+            <td>Frontend (proyecto casa)</td>
+            <td><span class="stage-badge tech">Proyecto + senior</span></td>
+            <td>40.000€ (14p)</td>
+            <td>Híbrido · Austria</td>
+          </tr>
+          <tr>
+            <td>Prosegur Cash</td>
+            <td>Vue 2→3, SAFE Scrum</td>
+            <td><span class="stage-badge tech">Entrevista técnica</span></td>
+            <td>35.000€</td>
+            <td>Híbrido · Madrid</td>
+          </tr>
+          <tr>
+            <td>Tech House</td>
+            <td>React, AWS, Salesforce</td>
+            <td><span class="stage-badge tech">Challenge técnico</span></td>
+            <td>N/D (contractor)</td>
+            <td>100% Remoto · US co.</td>
+          </tr>
+          <tr>
+            <td>Maropost</td>
+            <td>Vue, TS, CI/CD</td>
+            <td><span class="stage-badge tech">Leetcode + HR</span></td>
+            <td>N/D (contractor)</td>
+            <td>100% Remoto</td>
+          </tr>
+          <tr>
+            <td>Oxigent → Sita</td>
+            <td>Angular, equipo nuevo</td>
+            <td><span class="stage-badge hr">Prueba técnica</span></td>
+            <td>N/D</td>
+            <td>50/50 · Barcelona</td>
+          </tr>
+          <tr>
+            <td>Oxigent → Vueling</td>
+            <td>Angular, dinámico</td>
+            <td><span class="stage-badge hr">Prueba técnica</span></td>
+            <td>N/D</td>
+            <td>4 remoto / 1 presencial</td>
+          </tr>
+          <tr>
+            <td>Acciona (CON&SEL15)</td>
+            <td>React, Material, SASS</td>
+            <td><span class="stage-badge hr">Screening</span></td>
+            <td>30.000€</td>
+            <td>Híbrido · Madrid</td>
+          </tr>
+          <tr>
+            <td>Amaris Consulting</td>
+            <td>Frontend (por confirmar)</td>
+            <td><span class="stage-badge hr">HR call</span></td>
+            <td>N/D</td>
+            <td>N/D</td>
+          </tr>
+          <tr>
+            <td>Altia → EUIPO</td>
+            <td>Angular, sector público</td>
+            <td><span class="stage-badge hr">En base de datos</span></td>
+            <td>N/D</td>
+            <td>N/D</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
